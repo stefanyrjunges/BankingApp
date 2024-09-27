@@ -31,16 +31,13 @@ public class BankingApp implements ActionListener{
 
     public void initialize(){
 
-        //Creating the main window/frame
         frame = new JFrame();
         frame.setTitle("The Banking App. Get started today.");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800, 500);
         frame.setResizable(false);
-        //Center it
         frame.setLocationRelativeTo(null);
 
-        //Creating the menu bar
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(Color.BLACK);
         JMenu manage = new JMenu("Manage your account");
@@ -50,7 +47,6 @@ public class BankingApp implements ActionListener{
         JMenu converter = new JMenu("Converter");
         converter.setForeground((new Color(255,250,250)));
 
-        //Creating the items in the menu bar
         balance = new JMenuItem("Balance");
         addMoney = new JMenuItem("Add money");
         removeMoney = new JMenuItem("Remove money");
@@ -71,7 +67,6 @@ public class BankingApp implements ActionListener{
         convert.setBackground(Color.BLACK);
         convert.setForeground((new Color(255,250,250)));
 
-        //Adding the items
         manage.add(balance);
         manage.add(addMoney);
         manage.add(removeMoney);
@@ -85,7 +80,6 @@ public class BankingApp implements ActionListener{
 
         frame.setJMenuBar(menuBar);
 
-        //Creating action listener
         balance.addActionListener(this);
         addMoney.addActionListener(this);
         removeMoney.addActionListener(this);
@@ -93,32 +87,20 @@ public class BankingApp implements ActionListener{
         fundsTransfer.addActionListener(this);
         convert.addActionListener(this);
 
-        //Creating an outer panel to center the panel
         outerPanel = new JPanel(new GridBagLayout());
         outerPanel.setBackground(new Color(255,250,250));
 
-        //Creating the main panel
         panel = new JPanel();
-        //Horizontal and vertical in pixels. And components are centered
         panel.setPreferredSize(new Dimension(400, 300));
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         panel.setBackground(new Color(220,220,220));
 
-        // JButton button = new JButton("Click me");
-        // panel.add(button, BorderLayout.NORTH);
-
-        //Creating the label for the Banking App
         bankLabel = new JLabel("<html><br>The Banking App. Get started today. It's that easy.<hr></html>");
         bankLabel.setFont(new Font("Dialog", Font.BOLD, 15));
         panel.add(bankLabel);
 
-
-        //panel.add(new JLabel(new ImageIcon("logor.png")));
-
         outerPanel.add(panel);
-
         frame.add(outerPanel, BorderLayout.CENTER);
-
         frame.setVisible(true);
 
     }
@@ -134,19 +116,16 @@ public class BankingApp implements ActionListener{
         cLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
         panel.add(title);
         panel.add(cLabel);
-
-        //Home button inside items to go back to Homepage
+        
         if (e.getSource() == home){
             panel.add(bankLabel);
         }
 
-        //Balance item
         if (e.getSource() == balance) {
             title.setText("<html>Balance<hr><br><br></html>");
             cLabel.setText("Your current balance is €" + cBalance);
         }
 
-        //Add money item
         if (e.getSource() == addMoney) {
             title.setText("<html>Add money<hr><br></html>");
             cLabel.setText("Please input the amount you'd like to add");
@@ -161,7 +140,6 @@ public class BankingApp implements ActionListener{
             cLabel.setText("Your current balance is €" + cBalance);
         } 
         
-        //Add money button inside add money item
         if (e.getSource() == addButton) {
             String getValue = amountField.getText();
             JLabel errorLabel = new JLabel(); //put this in private later
@@ -185,22 +163,20 @@ public class BankingApp implements ActionListener{
             panel.repaint();
         }
 
-        //Remove money item
         if (e.getSource() == removeMoney) {
             title.setText("<html>Remove money<hr><br></html>");
             cLabel.setText("Please input the amount you'd like taken off of your account");
             lessAmountField = new JTextField("", 25);
-            //Button
+
             removeButton = new JButton("Remove from my account");
             removeButton.addActionListener(this);
-            //Adding elements
+
             panel.add(lessAmountField);
             panel.add(Box.createVerticalStrut(40));
             panel.add(removeButton);
             cLabel.setText("Your current balance is €" + cBalance);
         }
 
-        //Remove button inside remove money item
         if (e.getSource() == removeButton) {
             String getLessValue = lessAmountField.getText();
             getLessValue = getLessValue.replace(',', '.');
@@ -209,7 +185,6 @@ public class BankingApp implements ActionListener{
             home = new JButton("Home");
             home.addActionListener(this);
 
-                //If the balance is less than the amount to be removed:
                 if (cBalance < getLessValueC){
                     errorLabel.setText("Your balance is too low.");
                     panel.add(errorLabel);
@@ -235,7 +210,6 @@ public class BankingApp implements ActionListener{
             panel.repaint();
         }
 
-        //Transaction item
         if (e.getSource() == transactions){
             title.setText("<html>Your past transactions<hr><br></html>");
 
@@ -245,7 +219,6 @@ public class BankingApp implements ActionListener{
             addedMoneyTitle.setFont(new Font("Dialog", Font.BOLD, 16));
             panel.add(addedMoneyTitle);
     
-                //If the arraylist is empty:
                 if (addedMoneyTransactions.isEmpty()){
                     JLabel noTransactionLabel = new JLabel("No transactions.");
                     panel.add(noTransactionLabel);
@@ -280,7 +253,6 @@ public class BankingApp implements ActionListener{
             panel.repaint();
         }
 
-        //New transfer item
         if (e.getSource() == fundsTransfer) {
             title.setText("<html><br>Transfer funds - nice and easy.<hr><br></html>");
             title.setFont(new Font("Dialog", Font.PLAIN, 25));
@@ -307,7 +279,6 @@ public class BankingApp implements ActionListener{
             panel.add(transferButton);
         }
         
-        // Transfer button action handling
         if (e.getSource() == transferButton) {
             double getTransfer = Double.parseDouble(transferAmountF.getText());
         
